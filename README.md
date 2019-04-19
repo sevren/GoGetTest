@@ -53,5 +53,3 @@ The pairing-manager will send a message to the License manager via the RabbitMQ 
 ## Curl Testing script
 
 The following is a testing script written in bash to quickly demonstrate the functionality of the different endpoints 
-
-
