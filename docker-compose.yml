@@ -25,5 +25,6 @@ services:
       image: sevren/pairing-manager:latest
       ports:
         - 8081:8081
+      command: -amqp amqp://guest:guest@rabbitmq:5672/
       depends_on:
         - rabbitmq
