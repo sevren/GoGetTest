@@ -1,0 +1,3 @@
+[submodule "pairing-manager"]
+	path = pairing-manager
+	url = https://github.com/sevren/pairing-manager
