@@ -1,3 +1,6 @@
 [submodule "pairing-manager"]
 	path = pairing-manager
 	url = https://github.com/sevren/pairing-manager
+[submodule "license-manager"]
+	path = license-manager
+	url = https://github.com/sevren/license-manager
