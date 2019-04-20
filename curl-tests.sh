@@ -6,8 +6,9 @@ docker-compose up -d rabbitmq
 sleep 5
 # Start the rest
 docker-compose up -d license-manager
-sleep 2
+sleep 5
 docker-compose up -d pairing-manager
+sleep 2
 
 echo "\n\n Sending a POST request for user lisa\n\n"
 curl -v -d "{\"password\":\"s3cr3t\"}" http://localhost:8080/lisa
@@ -23,12 +24,3 @@ curl -v -d "{\"password\":\"qwerty\"}" http://localhost:8080/john/licenses
 
 echo "\n\nSending a POST request for a nonexistant user \n\n"
 curl -v -d "{\"password\":\"cvxcv\"}" http://localhost:8080/omg-i-dont-exist/licenses
-
-
-my_array=$(curl -v -d "{\"password\":\"qwerty\"}" http://localhost:8080/john/licenses | jq .licenses[])
-for i in "${my_array[@]}"; do echo "$i"; done
-
-echo "\n\n Sending POST request for pairing\n\n"
-PUBLIC_IP=`wget http://ipecho.net/plain -O - -q ; echo`
-curl -v -d '{"code":${my_array[0]}, "device-ip": "${PUBLIC_IP}"}' http://localhost:8081/pair
-
