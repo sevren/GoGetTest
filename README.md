@@ -81,6 +81,10 @@ The Rest endpoint is served on the following url:
 
 http://localhost:8081
 
+A swaggerui for this is also served on 
+
+http://localhost:9091/swaggerui
+
 ## Microservice Communication
 
 The 2 microservices use a Message Broker - RabbitMQ (Amqp) to communicate. 
