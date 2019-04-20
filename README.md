@@ -47,9 +47,10 @@ It uses my built images from DockerHub.
 
 Simply run the following in a terminal and it will start all the services 
 
+`./start.sh`
+
 Please note that the rabbit-mq dependency and the connection to the database take a few seconds. The rest controllers will be avaialble after those have started. 
 
-`docker-compose up`
 
 ## (Challenge 1) License-Manager 
 
@@ -91,4 +92,4 @@ The pairing-manager will send a message to the License manager via the RabbitMQ 
 
 ## Curl Testing script
 
-The following is a testing script written in bash to quickly demonstrate the functionality of the different endpoints 
+The following is a testing script written in bash to quickly demonstrate the functionality of the different endpoints in challenge 1

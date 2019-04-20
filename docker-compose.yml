@@ -17,6 +17,7 @@ services:
       image: sevren/license-manager:latest
       ports:
         - 8080:8080
+      command: -amqp amqp://guest:guest@rabbitmq:5672/
       depends_on:
         - rabbitmq
     pairing-manager:
