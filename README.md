@@ -65,6 +65,10 @@ The Rest endpoint is served on the following url:
 
 http://localhost:8080/
 
+A swaggerui for this is also served on 
+
+http://localhost:9090/swaggerui
+
 ## (Challenge 2) Pairing-Manager
 
 A simple microservice that features a REST controller, a in-memory cache and a connection to rabbitmq exchange. It corresponds to Challenge number 2. Simulating pairing a license to a device ip. 
