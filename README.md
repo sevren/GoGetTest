@@ -8,6 +8,22 @@ The following repo contains the bare minimum required to run the 3 challenges
 
 The test is implemented in Go 1.12
 
+## Clone with submodules
+
+```bash
+git clone --recursive https://github.com/sevren/GoGetTest.git
+```
+
+if you have an older version of git that doesnt support the recursive switch use this 
+`git submodule update --init --recursive`
+
+## Submodules
+
+This repo consists of 2 Git sub modules:
+* license-manager https://github.com/sevren/license-manager
+* pairing-manager https://github.com/sevren/pairing-manager
+
+
 ### Regarding Challenge 3 
 
 Challenge 3 implements functionality in both microservices from Challenges 1 and 2. 
@@ -24,11 +40,7 @@ The pairing-manager code has been upgraded to perform the following
 
 If the microservices can not connect to the rabbitmq server then the rabbitMQ functionality will be disabled, however you can still use the REST endpoints as normal
 
-## Submodules
 
-This repo consists of 2 Git sub modules please run the following to retrieve them
-
-`git submodule update --init --recursive`
 
 
 ## Prebuilt images
@@ -73,7 +85,7 @@ http://localhost:9090/swaggerui
 
 A simple microservice that features a REST controller, a in-memory cache and a connection to rabbitmq exchange. It corresponds to Challenge number 2. Simulating pairing a license to a device ip. 
 
-For testing purposes we use the following HEADER `x-forwarded-for`  in GET request to simulate spoofed ip addresses. 
+For testing purposes we use the following HEADER `X-Forwarded-For`  in GET request to simulate spoofed ip addresses. 
 
 This microservice is a publisher of messages on the rabbitMQ exchange. 
 
