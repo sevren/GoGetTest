@@ -13,8 +13,6 @@ services:
         - 15672:15672
       volumes:
         - rabbitmq-vol:/var/lib/rabbitmq:rw
-        - ./cfgs/definitions.json:/etc/rabbitmq/definitions.json:ro
-        #- ./cfgs/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
     license-manager:
       image: sevren/license-manager:latest
       ports:
