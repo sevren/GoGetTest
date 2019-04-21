@@ -83,7 +83,9 @@ Output
 ```
 
 (For challenge 3) licenses are generated via hashids with a salt of user:license - see https://hashids.org/
+```json
 {"licenses":["B5K4A6Q0yJKKcQYULahQ83nMZeVo8N","N2YPE6lO9J11IaYiOxIJv31aL5WzKg"]}
+```
 
 * POST http://localhost:8081/pair
 
