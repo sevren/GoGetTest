@@ -1,5 +1,9 @@
 # GoGet AB Test
 
+```bash
+git clone --recursive https://github.com/sevren/GoGetTest.git
+```
+
 The following repo contains the bare minimum required to run the 3 challenges
 
 * Challenge 1 - Create a micro service with a REST endpoint to retrieve licenses from a database (license-manager)
@@ -8,13 +12,38 @@ The following repo contains the bare minimum required to run the 3 challenges
 
 The test is implemented in Go 1.12
 
+## Quick start
+
+Please ensure that the following ports on your machine are not in use: 
+* 8080 - Used for license-manager
+* 9090 - Used for license-manager swaggerui
+* 8081 - Used for pairing-manager
+* 9091 - Used for pairing-manager swaggerui
+* 5672 - used for rabbitmq message communication
+* 15672 - used for rabbitmq management plugin web interface
+
+There are already pre-built docker hub packages implementing the services.
+You should just need docker-compose and docker installed on the machine that will run this code. 
+
+If you want challenge 3 stuff you need to run a rabbitmq server on localhost you can use the following command:
+
+`docker run -d -p 5672:5672 -p 15672:15672 -it rabbitmq:3.7-management-alpine`
+
+Open 2 terminals run one of these commands in each one :
+
+`docker run -p 8080:8080 -p 9090:9090 -it sevren/license-manager`
+
+
+`docker run -p 8081:8081 -p 9091:9091 -it sevren/pairing-manager`
+
+Should you not want to run the docker containers you can go into each submodule directory and run the code if you have go installed
+
+`go run .`
+
+
 ## Clone with submodules
 
-```bash
-git clone --recursive https://github.com/sevren/GoGetTest.git
-```
-
-if you have an older version of git that doesnt support the recursive switch use this 
+if you have an older version of git that doesnt support the recursive switch use this inside the repo
 `git submodule update --init --recursive`
 
 ## Submodules
@@ -39,17 +68,6 @@ The pairing-manager code has been upgraded to perform the following
 * On each POST, where a code is provided the service will then send a message to RabbitMQ
 
 If the microservices can not connect to the rabbitmq server then the rabbitMQ functionality will be disabled, however you can still use the REST endpoints as normal
-
-
-
-
-## Prebuilt images
-
-There are already pre-built docker hub packages implementing the services.
-You should just need docker-compose and docker installed on the machine that will run this code. 
-
-`docker run -p 8080:8080 -it sevren/license-manager`
-`docker run -p 8081:8081 -it sevren/pairing-manager`
 
 ## Docker compose
 
