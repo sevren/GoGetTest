@@ -15,15 +15,15 @@ The test is implemented in Go 1.12
 ## Quick start
 
 Please ensure that the following ports on your machine are not in use: 
-* 8080 - Used for license-manager
+* 8080 - Used for license-manager REST Controller
 * 9090 - Used for license-manager swaggerui
-* 8081 - Used for pairing-manager
+* 8081 - Used for pairing-manager REST Controller
 * 9091 - Used for pairing-manager swaggerui
 * 5672 - used for rabbitmq message communication
 * 15672 - used for rabbitmq management plugin web interface
 
 There are already pre-built docker hub packages implementing the services.
-You should just need docker-compose and docker installed on the machine that will run this code. 
+You should just need docker-compose and docker installed on the machine that will run this code.
 
  ### Running without RabbitMQ
 
@@ -69,6 +69,59 @@ This repo consists of 2 Git sub modules:
 * pairing-manager https://github.com/sevren/pairing-manager
 
 
+## Avialable endpoints
+
+* POST http://localhost:8080/{user}/licenses
+
+`curl -d '{"password":"qwerty"}' http://localhost:8080/john/licenses`
+
+Output
+
+(For challenge 1)
+```json
+{"licenses":["cm9vbV9kaXNwbGF5","cm9vbV9maW5kZXI="]}
+```
+
+(For challenge 3) licenses are generated via hashids with a salt of user:license - see https://hashids.org/
+{"licenses":["B5K4A6Q0yJKKcQYULahQ83nMZeVo8N","N2YPE6lO9J11IaYiOxIJv31aL5WzKg"]}
+
+* POST http://localhost:8081/pair
+
+`curl -d '{"code":"cm9vbV9kaXNwbGF5", "device":"192.168.1.1"}' http://localhost:8081/pair`
+
+Output
+
+```json
+{"key":"1346"}
+```
+
+* GET http://localhost:8081/pair/{code}/{magic-key}
+
+`curl --header "X-Forwarded-For: 192.168.1.1" http://localhost:8081/cm9vbV9kaXNwbGF5/1346`
+
+Output
+
+```json
+{
+    "Message": "success"
+}
+```
+
+You can easily spoof the ip address by changing the value in the header. If you change it to one that hasnt made the pairing request you will get rejected
+
+`curl --header "X-Forwarded-For: 192.168.1.255" http://localhost:8081/cm9vbV9kaXNwbGF5/1346`
+
+Output
+
+```json
+{
+    "error": {
+        "code": 403,
+        "message": "Code rejected, - Requesting ip address not correct"
+    }
+}
+```
+
 ### Regarding Challenge 3 
 
 Challenge 3 implements functionality in both microservices from Challenges 1 and 2. 
@@ -78,6 +131,8 @@ The license-manager code has been upgraded to perform the following:
 * Upon startup attempt to connect to RabbitMQ server and bind a queue to the exchange called `data`
 * Start a long running concurrent thread to consume messages
 * The messages consumed contain the code which was used for the pairing in Challenge 2. This will be inserted in the SQL lite databse under the table used_licenses
+
+*OBS! The licenses will look diffrent if Challenge 3 is enabled. - I switched from base64 to hashids*
 
 The pairing-manager code has been upgraded to perform the following
 * Upon startup attempt to connect to the RabbitMQ server and create the exchange called `data`
