@@ -25,16 +25,32 @@ Please ensure that the following ports on your machine are not in use:
 There are already pre-built docker hub packages implementing the services.
 You should just need docker-compose and docker installed on the machine that will run this code. 
 
-If you want challenge 3 stuff you need to run a rabbitmq server on localhost you can use the following command:
-
-`docker run -d -p 5672:5672 -p 15672:15672 -it rabbitmq:3.7-management-alpine`
+ ### Running without RabbitMQ
 
 Open 2 terminals run one of these commands in each one :
 
 `docker run -p 8080:8080 -p 9090:9090 -it sevren/license-manager`
 
-
 `docker run -p 8081:8081 -p 9091:9091 -it sevren/pairing-manager`
+
+ ### Running with RabbitMQ
+
+Start by creating your own docker network, since our containers will attempt to connect to each other, they need to be discoverable. 
+
+`docker network create challenge3-network`
+
+If you want challenge 3 stuff you need to run a rabbitmq server on localhost you can use the following command:
+
+`docker run --name rabbitmq --network=challenge3-network -d -p 5672:5672 -p 15672:15672 -it rabbitmq:3.7-management-alpine`
+
+Open 2 terminals run one of these commands in each one :
+
+`docker run --network=challenge3-network -p 8080:8080 -p 9090:9090 -it sevren/license-manager -amqp amqp://guest:guest@rabbitmq:5672/`
+
+
+`docker run --network=challenge3-network -p 8081:8081 -p 9091:9091 -it sevren/pairing-manager -amqp amqp://guest:guest@rabbitmq:5672/`
+
+### Running without docker
 
 Should you not want to run the docker containers you can go into each submodule directory and run the code if you have go installed
 
