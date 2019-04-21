@@ -41,7 +41,7 @@ Start by creating your own docker network, since our containers will attempt to 
 
 If you want challenge 3 stuff you need to run a rabbitmq server on localhost you can use the following command:
 
-`docker run --name rabbitmq --network=challenge3-network -d -p 5672:5672 -p 15672:15672 -it rabbitmq:3.7-management-alpine`
+`docker run --rm --name rabbitmq --network=challenge3-network -d -p 5672:5672 -p 15672:15672 -it rabbitmq:3.7-management-alpine`
 
 Give it a few seconds to fully complete the rabbitmq command before you run the next commands - rabbitmq is notorious for taking time to start up
 
