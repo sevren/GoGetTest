@@ -4,7 +4,7 @@ volumes:
   rabbitmq-vol:
 
 services:
-    rabbitmq:  #  The  RabbitMQ  broker  which  lives  in  the  box,  unsecure  
+    rabbitmq: 
       image: rabbitmq:3.7-management-alpine
       restart: unless-stopped
       ports:
@@ -18,6 +18,8 @@ services:
       ports:
         - 8080:8080
         - 9090:9090
+      volumes:
+       - user_licenses.db:/app/user_licenses.db
       command: -amqp amqp://guest:guest@rabbitmq:5672/
       depends_on:
         - rabbitmq
