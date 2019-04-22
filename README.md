@@ -47,7 +47,9 @@ Give it a few seconds to fully complete the rabbitmq command before you run the 
 
 Open 2 terminals run one of these commands in each one :
 
-`docker run --network=challenge3-network -p 8080:8080 -p 9090:9090 -it sevren/license-manager -amqp amqp://guest:guest@rabbitmq:5672/`
+We will mount the database into the container so you can see the inserted data in used_licenses
+
+`docker run --network=challenge3-network -v $PWD/user_licenses.db:/app/user_licenses.db -p 8080:8080 -p 9090:9090 -it sevren/license-manager -amqp amqp://guest:guest@rabbitmq:5672/`
 
 
 `docker run --network=challenge3-network -p 8081:8081 -p 9091:9091 -it sevren/pairing-manager -amqp amqp://guest:guest@rabbitmq:5672/`
