@@ -19,7 +19,7 @@ services:
         - 8080:8080
         - 9090:9090
       volumes:
-       - user_licenses.db:/app/user_licenses.db
+       - ./user_licenses.db:/app/user_licenses.db
       command: -amqp amqp://guest:guest@rabbitmq:5672/
       depends_on:
         - rabbitmq
