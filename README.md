@@ -103,7 +103,7 @@ Output
 
 * GET http://localhost:8081/pair/{code}/{magic-key}
 
-`curl --header "X-Forwarded-For: 192.168.1.1" http://localhost:8081/cm9vbV9kaXNwbGF5/1346`
+`curl --header "X-Forwarded-For: 192.168.1.1" http://localhost:8081/pair/cm9vbV9kaXNwbGF5/1346`
 
 Output
 
@@ -115,7 +115,7 @@ Output
 
 You can easily spoof the ip address by changing the value in the header. If you change it to one that hasnt made the pairing request you will get rejected
 
-`curl --header "X-Forwarded-For: 192.168.1.255" http://localhost:8081/cm9vbV9kaXNwbGF5/1346`
+`curl --header "X-Forwarded-For: 192.168.1.255" http://localhost:8081/pair/cm9vbV9kaXNwbGF5/1346`
 
 Output
 
@@ -145,6 +145,16 @@ The pairing-manager code has been upgraded to perform the following
 * On each POST, where a code is provided the service will then send a message to RabbitMQ
 
 If the microservices can not connect to the rabbitmq server then the rabbitMQ functionality will be disabled, however you can still use the REST endpoints as normal
+
+### Testing challenge 3
+
+Follow the instructions to start rabbitmq and the 2 docker services
+Open Sqllite browser, open the database from the repo
+Make a post to the /pair endpoint 
+http://localhost:8081/pair
+
+In SQL lite browser select the used_licenses database and click refresh. If the rabbitmq connection is working between the microservices and you have performed a POST you should see the license added to the tabled: used_licenses.
+
 
 ## Docker compose
 
