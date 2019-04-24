@@ -155,6 +155,31 @@ http://localhost:8081/pair
 
 In SQL lite browser select the used_licenses database and click refresh. If the rabbitmq connection is working between the microservices and you have performed a POST you should see the license added to the tabled: used_licenses.
 
+## GET used licenses endpoint
+
+You can make a GET request toward the database to check the used licenses
+
+`curl http://localhost:8080/usedlicenses`
+
+Produces output similar to the following if there is licenses
+
+```json
+{
+    "licenses": [
+        "B5K4A6Q0yJKKcQYULahQ83nMZeVo8N",
+        "N2YPE6lO9J11IaYiOxIJv31aL5WzKg"
+    ]
+}
+```
+
+and the following if there is no licenses
+
+```json
+{
+    "licenses": []
+}
+```
+
 
 ## Docker compose
 
